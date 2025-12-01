@@ -32,7 +32,31 @@ const { title } = Astro.props;
   <body>
     <slot />
     <script>
+      // Force scroll to top on refresh
+      if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+      }
+      
+      window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+      };
+
+      function forceScrollTop() {
+        window.scrollTo(0, 0);
+      }
+
+      forceScrollTop();
+
+      // Try on load as well, as images/layout might shift
+      window.addEventListener('load', () => {
+        forceScrollTop();
+        setTimeout(forceScrollTop, 20);
+      });
+
       document.addEventListener("DOMContentLoaded", () => {
+        forceScrollTop();
+        setTimeout(forceScrollTop, 0);
+        
         const observerOptions = {
           root: null,
           rootMargin: "0px",
