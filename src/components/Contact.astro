@@ -12,8 +12,8 @@
         </p>
 
         <div class="social-links">
-          <a href="mailto:email@example.com" class="social-link">
-            <i class="las la-envelope icon"></i> email@example.com
+          <a href="mailto:laura.llorente.v@gmail.com" class="social-link">
+            <i class="las la-envelope icon"></i> laura.llorente.v@gmail.com
           </a>
           <a
             href="https://www.linkedin.com/in/laura-llorente-38a5a81ba/"
@@ -33,6 +33,7 @@
       </div>
 
       <form
+        id="contact-form"
         class="contact-form reveal stagger-2"
         action="https://formspree.io/f/xnnedgwq"
         method="POST"
@@ -70,10 +71,73 @@
         </div>
 
         <button type="submit" class="btn">Send Message</button>
+        <div id="form-status" class="form-status"></div>
       </form>
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const status = document.getElementById("form-status");
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      
+      if (status) {
+        status.innerHTML = "";
+        status.className = "form-status";
+      }
+
+      const originalBtnText = submitBtn ? submitBtn.innerText : "Send Message";
+      if (submitBtn) {
+        submitBtn.innerText = "Sending...";
+        submitBtn.disabled = true;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          if (status) {
+            status.innerHTML = "Thanks for your message! I'll get back to you soon.";
+            status.classList.add("success");
+          }
+          form.reset();
+        } else {
+          const jsonData = await response.json();
+          if (status) {
+            if (Object.hasOwn(jsonData, 'errors')) {
+              status.innerHTML = jsonData["errors"].map((error: any) => error["message"]).join(", ");
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form";
+            }
+            status.classList.add("error");
+          }
+        }
+      } catch (error) {
+        if (status) {
+          status.innerHTML = "Oops! There was a problem submitting your form";
+          status.classList.add("error");
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.innerText = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      }
+    });
+  }
+</script>
 
 <style>
   .contact {
@@ -160,6 +224,24 @@
   .form-group textarea:focus {
     outline: none;
     border-color: var(--color-primary);
+  }
+
+  .form-status {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+  }
+
+  .form-status.success {
+    color: #2e7d32;
+    background-color: #e8f5e9;
+    padding: 0.5rem;
+  }
+
+  .form-status.error {
+    color: #c62828;
+    background-color: #ffebee;
+    padding: 0.5rem;
   }
 
   @media (max-width: 768px) {
