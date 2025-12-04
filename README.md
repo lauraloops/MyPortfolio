@@ -1,29 +1,13 @@
-# Astro Starter Kit: Minimal
+# Laura Llorente - Bioinformatics Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
-```
+This is the source code for my personal portfolio website, built with [Astro](https://astro.build).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Tech Stack
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+- **Framework:** Astro
+- **Styling:** CSS (Custom properties & scoped styles)
+- **Icons:** Line Awesome
+- **Deployment:** GitHub Pages
 
 ## 🧞 Commands
 
@@ -35,9 +19,16 @@ All commands are run from the root of the project, from a terminal:
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## 📂 Project Structure
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```text
+/
+├── public/             # Static assets (images, favicon)
+├── src/
+│   ├── components/     # UI Components (Hero, About, Skills, etc.)
+│   ├── layouts/        # Main layout (HTML shell)
+│   ├── pages/          # Pages (index.astro)
+│   └── styles/         # Global styles
+└── astro.config.mjs    # Astro configuration
+```

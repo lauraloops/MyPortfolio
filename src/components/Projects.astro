@@ -5,7 +5,8 @@ const projects = [
     description:
       "A comprehensive analysis of genomic datasets using Python and R to identify potential biomarkers.",
     tags: ["Python", "R", "Bioinformatics"],
-    image: "project-1-placeholder",
+    image: "/images/profile.jpeg",
+    url: "https://github.com/lauraloops/Genomic_Data_Analysis",
   },
   {
     title: "Protein Structure Prediction",
@@ -13,13 +14,7 @@ const projects = [
       "Machine learning model developed to predict secondary protein structures with high accuracy.",
     tags: ["Machine Learning", "PyTorch", "Structural Biology"],
     image: "project-2-placeholder",
-  },
-  {
-    title: "Clinical Data Visualization",
-    description:
-      "Interactive dashboard for visualizing clinical trial data trends and patient demographics.",
-    tags: ["React", "D3.js", "Data Viz"],
-    image: "project-3-placeholder",
+    url: "https://github.com/lauraloops/biovis-studio",
   },
 ];
 ---
@@ -33,8 +28,7 @@ const projects = [
         projects.map((project, index) => (
           <div class={`project-card reveal stagger-${(index % 4) + 1}`}>
             <div class="card-image">
-              <div class="placeholder-image">{project.title} Image</div>
-              {/* Replace with actual image when available */}
+              <img src={project.image} alt={`${project.title} Image`} />
             </div>
             <div class="card-content">
               <h3>{project.title}</h3>
@@ -44,7 +38,7 @@ const projects = [
                   <span class="tag">{tag}</span>
                 ))}
               </div>
-              <a href="#" class="project-link">
+              <a href={project.url} class="project-link" target="_blank" rel="noopener noreferrer">
                 View Details →
               </a>
             </div>
@@ -61,8 +55,9 @@ const projects = [
   }
 
   .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2rem;
   }
 
@@ -74,6 +69,9 @@ const projects = [
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
+    flex: 1 1 300px;
+    max-width: 450px;
+    width: 100%;
   }
 
   .project-card:hover {
@@ -87,6 +85,13 @@ const projects = [
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .placeholder-image {
